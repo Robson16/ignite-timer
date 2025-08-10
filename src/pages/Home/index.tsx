@@ -15,12 +15,13 @@ import {
   TaskInput,
   TimeInput,
 } from './styles'
+import { set } from 'zod/v4'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
   minutesAmount: zod
     .number()
-    .min(5, 'O ciclo precisa ser de no mínimo de 5 minutos.')
+    .min(1, 'O ciclo precisa ser de no mínimo de 1 minuto.')
     .max(60, 'O ciclo precisa ser de no máximo 60 minutos.'),
 })
 
@@ -32,6 +33,7 @@ interface Cycle {
   minutesAmount: number
   startDate: Date
   interruptedDate?: Date
+  finishedDate?: Date
 }
 
 export function Home() {
@@ -49,21 +51,14 @@ export function Home() {
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
-  useEffect(() => {
-    let interval: number;
+  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
+  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
 
-    if (activeCycle) {
-      interval = setInterval(() => {
-        setAmountSecondsPassed(
-          differenceInSeconds(new Date(), activeCycle.startDate)
-        )
-      }, 1000)
-    }
+  const minutosAmount = Math.floor(currentSeconds / 60)
+  const secondsAmount = currentSeconds % 60
 
-    return () => {
-      clearInterval(interval)
-    }
-  }, [activeCycle])
+  const minutes = String(minutosAmount).padStart(2, '0')
+  const seconds = String(secondsAmount).padStart(2, '0')
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     const id = uuid()
@@ -94,14 +89,38 @@ export function Home() {
     setActiveCycleId(null)
   }
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
+  useEffect(() => {
+    let interval: number;
 
-  const minutosAmount = Math.floor(currentSeconds / 60)
-  const secondsAmount = currentSeconds % 60
+    if (activeCycle) {
+      interval = setInterval(() => {
+        const secondsDifference = differenceInSeconds(
+          new Date(),
+          activeCycle.startDate
+        )
 
-  const minutes = String(minutosAmount).padStart(2, '0')
-  const seconds = String(secondsAmount).padStart(2, '0')
+        if (secondsDifference >= totalSeconds) {
+          setCycles((state) =>
+            state.map((cycle) => {
+              if (cycle.id === activeCycleId) {
+                return { ...cycle, finishedDate: new Date() }
+              }
+              return cycle
+            })
+          )
+          setActiveCycleId(null)
+          setAmountSecondsPassed(totalSeconds)
+          clearInterval(interval)
+        } else {
+          setAmountSecondsPassed(secondsDifference)
+        }
+      }, 1000)
+    }
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [activeCycle, totalSeconds, activeCycleId])
 
   useEffect(() => {
     if (activeCycle) {
@@ -138,7 +157,7 @@ export function Home() {
             type="number"
             id="minutesAmount"
             placeholder="00"
-            min={5}
+            min={1}
             max={60}
             step={5}
             disabled={!!activeCycle}
