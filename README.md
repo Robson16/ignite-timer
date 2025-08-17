@@ -11,7 +11,7 @@ Segundo projeto desenvolvido na Trilha ReactJS do Ignite.
 1.  Clone o repositório:
 
     ```bash
-    git clone [https://github.com/Robson16/ignite-todo.git](https://github.com/Robson16/ignite-todo.git)
+    git clone https://github.com/Robson16/ignite-todo.git
     ```
 
 2.  Acesse o diretório do projeto:
