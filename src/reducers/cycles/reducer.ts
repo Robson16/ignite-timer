@@ -1,5 +1,5 @@
-import { produce } from "immer"
-import { ActionTypes } from "./actions"
+import { produce } from 'immer'
+import { ActionTypes } from './actions'
 
 export interface Cycle {
   id: string

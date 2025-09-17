@@ -4,7 +4,7 @@
     <img alt="screenshot" title="Screenshot" src="./.github/cover.jpg" />
 </p>
 
-Este é o segundo projeto desenvolvido durante a Trilha ReactJS do Ignite, focado na criação de um timer personalizado para gerenciamento de tarefas. O objetivo é aplicar conceitos fundamentais do React, como estados, componentes e hooks, além de boas práticas de organização e estilização de aplicações modernas.
+Este é o segundo projeto desenvolvido durante a Trilha ReactJS do Ignite 2022, focado na criação de um timer personalizado para gerenciamento de tarefas. O objetivo é aplicar conceitos fundamentais do React, como estados, componentes e hooks, além de boas práticas de organização e estilização de aplicações modernas.
 
 ## Tecnologias Utilizadas
 

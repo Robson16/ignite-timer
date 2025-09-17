@@ -1,12 +1,18 @@
-import { differenceInSeconds } from "date-fns";
-import { createContext, useEffect, useReducer, useState, type ReactNode } from "react";
-import { v4 as uuid } from 'uuid';
+import { differenceInSeconds } from 'date-fns'
+import {
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+  type ReactNode,
+} from 'react'
+import { v4 as uuid } from 'uuid'
 import {
   addNewCycleAction,
   interruptCurrentCycleAction,
-  markCurrentCycleAsFinishedAction
-} from "../reducers/cycles/actions";
-import { cyclesReducer, type Cycle } from "../reducers/cycles/reducer";
+  markCurrentCycleAsFinishedAction,
+} from '../reducers/cycles/actions'
+import { cyclesReducer, type Cycle } from '../reducers/cycles/reducer'
 
 interface CreateCycleData {
   task: string
@@ -30,24 +36,26 @@ interface CyclesContextProviderProps {
 
 export const CyclesContext = createContext({} as CyclesContextType)
 
-export function CyclesContextProvider(
-  { children }: CyclesContextProviderProps
-) {
+export function CyclesContextProvider({
+  children,
+}: CyclesContextProviderProps) {
   const [cyclesState, dispatch] = useReducer(
     cyclesReducer,
     {
       cycles: [],
-      activeCycleId: null
+      activeCycleId: null,
     },
     (initialState) => {
-      const storedStateAsJSON = localStorage.getItem('@ignite-timer:cycles-state-1.0.0')
+      const storedStateAsJSON = localStorage.getItem(
+        '@ignite-timer:cycles-state-1.0.0',
+      )
 
       if (storedStateAsJSON) {
         return JSON.parse(storedStateAsJSON)
       }
 
       return initialState
-    }
+    },
   )
 
   const { cycles, activeCycleId } = cyclesState

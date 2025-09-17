@@ -38,7 +38,7 @@ export const BaseCountdownButton = styled.button`
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;
-  } 
+  }
 `
 
 export const StartCountdownButton = styled(BaseCountdownButton)`

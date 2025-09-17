@@ -1,8 +1,8 @@
 {
   "name": "ignite-timer",
   "private": false,
-  "version": "0.0.0",
-  "description": "Segundo projeto desenvolvido na Trilha ReactJS do Ignite.",
+  "version": "1.0.0",
+  "description": "Segundo projeto desenvolvido na Trilha ReactJS do Ignite 2022.",
   "author": {
     "name": "Robson H. Rodrigues",
     "url": "https://github.com/Robson16"
@@ -53,14 +53,16 @@
     "@types/styled-components": "5.1.34",
     "@vitejs/plugin-react": "4.4.1",
     "eslint": "9.34.0",
+    "eslint-config-prettier": "10.1.8",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-prettier": "5.4.0",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-react-refresh": "0.4.20",
     "globals": "16.1.0",
+    "prettier": "3.6.2",
     "typescript": "5.8.3",
     "typescript-eslint": "8.32.1",
-    "vite": "6.3.5"
+    "vite": "6.3.6"
   }
 }
